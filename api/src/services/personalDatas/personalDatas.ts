@@ -1,6 +1,11 @@
-import type { MutationResolvers, PersonalDataRelationResolvers, QueryResolvers } from "types/graphql";
+import type {
+  MutationResolvers,
+  PersonalDataRelationResolvers,
+  QueryResolvers,
+} from 'types/graphql'
 
-import { db } from "src/lib/db";
+import { db } from 'src/lib/db'
+import { UserInputError } from '@redwoodjs/graphql-server'
 
 export const personalDatas: QueryResolvers['personalDatas'] = () => {
   return db.personalData.findMany()
@@ -12,24 +17,19 @@ export const personalData: QueryResolvers['personalData'] = ({ id }) => {
   })
 }
 
-export const personalDataByUserId: QueryResolvers['personalDataByUserId'] = ({
-  userId,
-}) => {
-  if (userId == undefined) return null
-  return db.personalData.findUnique({
-    where: { userId },
-    select: {
-      name: true,
-      familyName: true,
-      isParent: true,
-      role: true,
-    },
-  })
-}
+export const getPersonalDataByUserId: QueryResolvers['getPersonalDataByUserId'] =
+  ({ userId }) => {
+    return db.personalData.findUnique({
+      where: { userId },
+    })
+  }
 
 export const createPersonalData: MutationResolvers['createPersonalData'] = ({
   input,
 }) => {
+  if (db.personalData.findUnique({ where: { userId: input.userId } })) {
+    throw new UserInputError('Zu dieser Email existiert bereits ein Account')
+  }
   return db.personalData.create({
     data: input,
   })
