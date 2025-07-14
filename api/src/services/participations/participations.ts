@@ -5,7 +5,7 @@ import type {
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
-import { RedwoodError } from '@redwoodjs/api'
+import { getUserEmails } from 'src/services/users/users'
 
 export const participations: QueryResolvers['participations'] = async ({
   userId,
@@ -24,7 +24,35 @@ export const participation: QueryResolvers['participation'] = ({ id }) => {
 
 export const participationsForCheckin: QueryResolvers['participationsForCheckin'] =
   async () => {
-    throw new RedwoodError('not impl.')
+    const participations = await db.participation.findMany({
+      select: {
+        id: true,
+        checkinConfirmed: true,
+        userId: true,
+        personalData: {
+          select: {
+            name: true,
+            familyName: true,
+            userId: true,
+          },
+        },
+      },
+    })
+    const emails = await getUserEmails()
+
+    function findEmailByUid(uid: string): string | undefined {
+      const data = emails.find((row) => row.uid === uid)
+      return data?.email
+    }
+    return participations.map((participation) => {
+      return {
+        id: participation.id,
+        name: participation.personalData.name ?? '',
+        familyName: participation.personalData.familyName ?? '',
+        checkinConfirmed: participation.checkinConfirmed ?? false,
+        email: findEmailByUid(participation.userId),
+      }
+    })
   }
 
 export const createParticipation: MutationResolvers['createParticipation'] = ({

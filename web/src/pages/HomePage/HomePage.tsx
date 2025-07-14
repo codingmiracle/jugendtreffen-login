@@ -21,12 +21,16 @@ const HomePage = () => {
     )
   }
 
-  if (isAuthenticated && personalData.role.id == 3) {
-    return <ParticipantView />
-  }
-
   if (isAuthenticated && personalData.role.id == 1) {
     return <CheckinView />
+  }
+
+  if (isAuthenticated && personalData.role.id == 2) {
+    return <QuartierView />
+  }
+
+  if (isAuthenticated && personalData.role.id == 3) {
+    return <ParticipantView />
   }
 
   return <DefaultView />

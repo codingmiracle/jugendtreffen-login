@@ -1,42 +1,28 @@
-import type {
-  QueryResolvers,
-  MutationResolvers,
-  UserRelationResolvers,
-} from 'types/graphql'
+import { createClient } from '@supabase/supabase-js'
 
-import { db } from 'src/lib/db'
+export const supabaseClient = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_KEY || '' // Öffentlicher Anon Key für normale Abfragen
+)
 
-export const users: QueryResolvers['users'] = () => {
-  return db.user.findMany()
-}
+export const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || '' // Service Role Key für Admin-Zugriff
+)
 
-export const user: QueryResolvers['user'] = ({ id }) => {
-  return db.user.findUnique({
-    where: { id },
-  })
-}
-
-export const createUser: MutationResolvers['createUser'] = ({ input }) => {
-  return db.user.create({
-    data: input,
-  })
-}
-
-export const updateUser: MutationResolvers['updateUser'] = ({ id, input }) => {
-  return db.user.update({
-    data: input,
-    where: { id },
-  })
-}
-
-export const deleteUser: MutationResolvers['deleteUser'] = ({ id }) => {
-  return db.user.delete({
-    where: { id },
-  })
-}
-
-export const User: UserRelationResolvers = {
-  role: (_obj, { root }) => {
-    return db.user.findUnique({ where: { id: root?.id } }).role()
-  },
+export const getUserEmails: () => Promise<
+  { uid: string; email: string }[]
+> = async () => {
+  try {
+    const { data, error } = await supabaseAdmin.auth.admin.listUsers()
+    if (error) {
+      throw new Error(`Fehler beim Abrufen der Benutzer: ${error.message}`)
+    }
+    return data.users.map((user) => ({
+      uid: user.id,
+      email: user.email,
+    }))
+  } catch (error) {
+    throw new Error(`Fehler: ${error.message}`)
+  }
 }

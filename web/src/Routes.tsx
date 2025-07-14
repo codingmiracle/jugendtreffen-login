@@ -1,12 +1,13 @@
-import { Route, Router, Set } from "@redwoodjs/router";
+import { Route, Router, Set } from '@redwoodjs/router'
 
-import { useAuth } from "src/auth";
-import PageLayout from "src/layouts/AuthLayout/AuthLayout";
-import GlobalLayout from "src/layouts/GlobalLayout/GlobalLayout";
+import { useAuth } from 'src/auth'
+import PageLayout from 'src/layouts/AuthLayout/AuthLayout'
+import GlobalLayout from 'src/layouts/GlobalLayout/GlobalLayout'
 
 const Routes = () => {
   return (
     <Router useAuth={useAuth}>
+      <Route path="/checkin-detail" page={CheckinDetailPage} name="checkinDetail" />
       <Set wrap={GlobalLayout}>
         <Route path="/" page={HomePage} name="home" />
         <Set wrap={PageLayout}>
@@ -14,6 +15,7 @@ const Routes = () => {
           <Route path="/signup" page={SignupPage} name="signup" />
           <Route path="/confirm" page={ConfirmSignupPage} name="confirmSignup" />
           <Route path="/events/{id}" page={EventPage} name="events" />
+          <Route path="/checkin/{id}" page={CheckinDetailPage} name="checkin" />
         </Set>
       </Set>
       <Route notfound page={NotFoundPage} prerender />
