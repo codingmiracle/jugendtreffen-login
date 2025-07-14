@@ -24,3 +24,4 @@ api/src/lib/generateGraphiQLHeader.*
 !.yarn/versions
 /api/db/backup/
 /api/db/backups/
+/scripts/~../

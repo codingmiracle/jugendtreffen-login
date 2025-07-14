@@ -15,19 +15,19 @@ model PersonalData {
   familyName            String
   birthdate             DateTime?
   gender                String?
-  phoneNumber           String?
-  phoneCaretakerContact String?
-  foundUsBy             String?
-  isParent              Boolean?
   roleId                Int
   country               String?
   city                  String?
   postalCode            String?
   address               String?
+  phoneNumber           String?
+  phoneCaretakerContact String?
   userId                String          @unique @db.Uuid
-  role                  SystemRole      @relation(fields: [roleId], references: [id], onDelete: SetDefault, onUpdate: Cascade)
+  foundUsBy             String?
+  isParent              Boolean?
   created_at            DateTime        @default(now())
   Participation         Participation[]
+  role                  SystemRole      @relation(fields: [roleId], references: [id], onDelete: SetDefault)
 
   @@map("personalDatas")
 }
@@ -37,22 +37,21 @@ model Participation {
   travelMethod         String?
   participationRoleId  Int?
   accommodation        Boolean?
-  accomodationLocation String?
   startDate            DateTime
   endDate              DateTime
-  foodChoice           String
   helpAfterwards       Boolean?
   acceptPhotos         Boolean
   acceptCoC            Boolean
   eventId              Int
+  foodChoice           String
+  accomodationLocation String?
   userId               String             @db.Uuid
-  event                Event              @relation(fields: [eventId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  participationRole    ParticipationRole? @relation(fields: [participationRoleId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   checkinConfirmed     Boolean?
-  price                Int?
   created_at           DateTime           @default(now())
-
-  personalData PersonalData @relation(fields: [userId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
+  price                Int?
+  event                Event              @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  participationRole    ParticipationRole? @relation(fields: [participationRoleId], references: [id])
+  personalData         PersonalData       @relation(fields: [userId], references: [userId], onDelete: SetNull)
 
   @@index([userId])
   @@map("participations")
@@ -78,8 +77,8 @@ model Event {
   id             Int             @id @default(autoincrement())
   name           String          @unique
   desc           String
-  startDate      DateTime
   endDate        DateTime
+  startDate      DateTime
   participations Participation[]
 
   @@map("events")
