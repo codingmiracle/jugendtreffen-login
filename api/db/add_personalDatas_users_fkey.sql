@@ -16,4 +16,12 @@ ALTER TABLE public."participations"
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 END IF;
+IF
+EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'auth' AND table_name = 'users') THEN
+ALTER TABLE public."presences"
+  ADD CONSTRAINT "presences_users_fkey" FOREIGN KEY ("userId")
+    REFERENCES auth.users (id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+END IF;
 END $$;

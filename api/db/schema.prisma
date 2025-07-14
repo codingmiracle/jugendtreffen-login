@@ -27,7 +27,6 @@ model PersonalData {
   userId                String          @unique @db.Uuid
   role                  SystemRole      @relation(fields: [roleId], references: [id], onDelete: SetDefault, onUpdate: Cascade)
   created_at            DateTime        @default(now())
-  updated_at            DateTime        @updatedAt
   Participation         Participation[]
 
   @@map("personalDatas")
@@ -52,7 +51,6 @@ model Participation {
   checkinConfirmed     Boolean?
   price                Int?
   created_at           DateTime           @default(now())
-  updated_at           DateTime           @updatedAt
 
   personalData PersonalData @relation(fields: [userId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
 
