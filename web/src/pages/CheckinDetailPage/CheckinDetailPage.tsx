@@ -1,20 +1,19 @@
-// import { Link, routes } from '@redwoodjs/router'
 import { Metadata } from '@redwoodjs/web'
+import { usePage } from '@redwoodjs/web/usePage'
+import UpdateParticipationCell from 'src/components/UpdateParticipationCell'
 
 const CheckinDetailPage = () => {
+  const { id } = useParams()
   return (
     <>
-      <Metadata title="CheckinDetail" description="CheckinDetail page" />
+      <Metadata title="Check In" description="Check In" />
 
-      <h1>CheckinDetailPage</h1>
-      <p>
-        Find me in{' '}
-        <code>./web/src/pages/CheckinDetailPage/CheckinDetailPage.tsx</code>
-      </p>
-      {/*
-          My default route is named `checkinDetail`, link to me with:
-          `<Link to={routes.checkinDetail()}>CheckinDetail</Link>`
-      */}
+      <section className="flex flex-col p-6 mx-auto lg:py-0 h-full mt-20 gap-2">
+        <h1>Check In</h1>
+        <div className="mb-4l">
+          <UpdateParticipationCell />
+        </div>
+      </section>
     </>
   )
 }
