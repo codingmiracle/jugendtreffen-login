@@ -13,14 +13,17 @@ export const QUERY: TypedDocumentNode<
   PersonalDataQuery,
   PersonalDataQueryVariables
 > = gql`
-  query PersonalDataQuery($id: BigInt) {
+  query PersonalDataQuery($id: BigInt!) {
     personalData(id: $id) {
-      id
       name
+      id
       familyName
       birthdate
       gender
-      role
+      role {
+        id
+        desc
+      }
       phoneNumber
       phoneCaretakerContact
       country

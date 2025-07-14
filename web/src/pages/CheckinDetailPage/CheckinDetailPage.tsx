@@ -1,6 +1,6 @@
 import { Metadata } from '@redwoodjs/web'
-import { usePage } from '@redwoodjs/web/usePage'
 import UpdateParticipationCell from 'src/components/UpdateParticipationCell'
+import { useParams } from '@redwoodjs/router'
 
 const CheckinDetailPage = () => {
   const { id } = useParams()

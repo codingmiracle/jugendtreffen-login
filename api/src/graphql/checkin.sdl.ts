@@ -19,8 +19,4 @@ export const schema = gql`
     checkinOverview: [CheckinOverviewType!] @requireAuth
     checkinDetails(participationId: BigInt!): CheckinDetailType @requireAuth
   }
-
-  type Mutation {
-
-  }
 `

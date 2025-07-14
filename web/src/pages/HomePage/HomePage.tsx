@@ -6,6 +6,7 @@ import DefaultView from 'src/pages/HomePage/DefaultView'
 import ParticipantView from 'src/pages/HomePage/ParticipantView'
 import CheckinView from 'src/pages/HomePage/CheckinView'
 import QuartierView from 'src/pages/HomePage/QuartierView'
+import { PersonalData } from 'types/graphql'
 
 const HomePage = () => {
   const { loading, isAuthenticated, currentUser } = useAuth()

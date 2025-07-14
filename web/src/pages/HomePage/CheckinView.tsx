@@ -4,6 +4,7 @@ import { useAuth } from 'src/auth'
 
 const ParticipantView = () => {
   const { currentUser, isAuthenticated } = useAuth()
+  const personalData = currentUser?.personalData
   return (
     <>
       <Metadata title="Check In" description="Check In" />
