@@ -51,6 +51,7 @@ export const schema = gql`
     phoneNumber: String
     phoneCaretakerContact: String
     userId: String
+    isParent: Boolean
   }
 
   type Mutation {

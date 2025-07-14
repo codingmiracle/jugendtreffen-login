@@ -16,6 +16,7 @@ const Routes = () => {
           <Route path="/confirm" page={ConfirmSignupPage} name="confirmSignup" />
           <Route path="/events/{id}" page={EventPage} name="events" />
           <Route path="/checkin/{id}" page={CheckinDetailPage} name="checkin" />
+          <Route path="/personal-datas" page={PersonalDatasPage} name="personalDatas" />
         </Set>
       </Set>
       <Route notfound page={NotFoundPage} prerender />

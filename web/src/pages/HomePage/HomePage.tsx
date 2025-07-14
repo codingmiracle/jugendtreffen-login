@@ -5,6 +5,7 @@ import LoadingSpinner from 'src/components/Loading/LoadingSpinner'
 import DefaultView from 'src/pages/HomePage/DefaultView'
 import ParticipantView from 'src/pages/HomePage/ParticipantView'
 import CheckinView from 'src/pages/HomePage/CheckinView'
+import QuartierView from 'src/pages/HomePage/QuartierView'
 
 const HomePage = () => {
   const { loading, isAuthenticated, currentUser } = useAuth()
@@ -21,15 +22,15 @@ const HomePage = () => {
     )
   }
 
-  if (isAuthenticated && personalData.role.id == 1) {
+  if (isAuthenticated && personalData.role.id === 1) {
     return <CheckinView />
   }
 
-  if (isAuthenticated && personalData.role.id == 2) {
+  if (isAuthenticated && personalData.role.id === 2) {
     return <QuartierView />
   }
 
-  if (isAuthenticated && personalData.role.id == 3) {
+  if (isAuthenticated && personalData.role.id === 3) {
     return <ParticipantView />
   }
 

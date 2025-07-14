@@ -18,18 +18,9 @@ export const schema = gql`
     participationRole: ParticipationRole
   }
 
-  type CheckinRow {
-    id: BigInt!
-    name: String
-    familyName: String
-    email: String
-    checkinConfirmed: Boolean
-  }
-
   type Query {
     participations(userId: String): [Participation!] @requireAuth
     participation(id: BigInt!): Participation @requireAuth
-    participationsForCheckin: [CheckinRow!] @requireAuth
   }
 
   input CreateParticipationInput {
