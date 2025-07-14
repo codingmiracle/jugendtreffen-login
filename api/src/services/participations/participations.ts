@@ -1,6 +1,11 @@
-import type { MutationResolvers, ParticipationRelationResolvers, QueryResolvers } from "types/graphql";
+import type {
+  MutationResolvers,
+  ParticipationRelationResolvers,
+  QueryResolvers,
+} from 'types/graphql'
 
-import { db } from "src/lib/db";
+import { db } from 'src/lib/db'
+import { RedwoodError } from '@redwoodjs/api'
 
 export const participations: QueryResolvers['participations'] = async ({
   userId,
@@ -16,6 +21,11 @@ export const participation: QueryResolvers['participation'] = ({ id }) => {
     where: { id },
   })
 }
+
+export const participationsForCheckin: QueryResolvers['participationsForCheckin'] =
+  async () => {
+    throw new RedwoodError('not impl.')
+  }
 
 export const createParticipation: MutationResolvers['createParticipation'] = ({
   input,

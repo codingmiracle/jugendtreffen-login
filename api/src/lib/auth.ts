@@ -1,6 +1,6 @@
-import { AuthenticationError, ForbiddenError } from "@redwoodjs/graphql-server";
+import { AuthenticationError, ForbiddenError } from '@redwoodjs/graphql-server'
 
-import { personalDataByUserId } from "src/services/personalDatas/personalDatas";
+import { personalDataByUserId } from 'src/services/personalDatas/personalDatas'
 
 /**
  * Represents the user attributes returned by the decoding the
@@ -28,7 +28,7 @@ type RedwoodUser = Record<string, unknown> & { roles?: string[] }
  *
  * @returns RedwoodUser
  */
-export const getCurrentUser = (
+export const getCurrentUser = async (
   decoded,
   /* eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars */
   { token, type },
@@ -40,7 +40,7 @@ export const getCurrentUser = (
   }
 
   // const { roles } = parseJWT({ decoded })
-  const personalData = personalDataByUserId({ userId: decoded.sub })
+  const personalData = await personalDataByUserId({ userId: decoded.sub })
   return { ...decoded, personalData }
 }
 

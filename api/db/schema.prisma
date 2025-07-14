@@ -10,7 +10,7 @@ datasource db {
 }
 
 model PersonalData {
-  id                    BigInt     @id @default(autoincrement())
+  id                    BigInt          @id @default(autoincrement())
   name                  String
   familyName            String
   birthdate             DateTime?
@@ -24,8 +24,11 @@ model PersonalData {
   city                  String?
   postalCode            String?
   address               String?
-  userId                String    @unique @db.Uuid
-  role                  SystemRole @relation(fields: [roleId], references: [id], onDelete: SetDefault, onUpdate: Cascade)
+  userId                String          @unique @db.Uuid
+  role                  SystemRole      @relation(fields: [roleId], references: [id], onDelete: SetDefault, onUpdate: Cascade)
+  created_at            DateTime        @default(now())
+  updated_at            DateTime        @updatedAt
+  Participation         Participation[]
 
   @@map("personalDatas")
 }
@@ -43,12 +46,18 @@ model Participation {
   acceptPhotos         Boolean
   acceptCoC            Boolean
   eventId              Int
-  userId               String    @db.Uuid
-  event                Event             @relation(fields: [eventId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  userId               String             @db.Uuid
+  event                Event              @relation(fields: [eventId], references: [id], onDelete: SetNull, onUpdate: Cascade)
   participationRole    ParticipationRole? @relation(fields: [participationRoleId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  checkinConfirmed     Boolean?
+  price                Int?
+  created_at           DateTime           @default(now())
+  updated_at           DateTime           @updatedAt
 
-  @@map("participations")
+  personalData PersonalData @relation(fields: [userId], references: [userId], onDelete: SetNull, onUpdate: Cascade)
+
   @@index([userId])
+  @@map("participations")
 }
 
 model SystemRole {
@@ -76,4 +85,13 @@ model Event {
   participations Participation[]
 
   @@map("events")
+}
+
+model Presence {
+  id         Int      @id @default(autoincrement())
+  userId     String   @db.Uuid
+  date       DateTime
+  created_at DateTime @default(now())
+
+  @@map("presences")
 }
