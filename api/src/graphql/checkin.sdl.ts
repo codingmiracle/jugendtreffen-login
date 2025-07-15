@@ -12,7 +12,7 @@ export const schema = gql`
     name: String
     familyName: String
     email: String
-    age: Int
+    birthdate: DateTime
   }
 
   type Query {
