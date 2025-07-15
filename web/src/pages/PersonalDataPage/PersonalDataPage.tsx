@@ -36,7 +36,9 @@ const DELETE_PERSONALDATA = gql`
 
 const PersonalDataPage = () => {
   const { id } = useParams()
-  const { data, error } = useQuery(QUERY)
+  const { data, error } = useQuery(QUERY, {
+    variables: { id: parseInt(id) },
+  })
   const [updatePersonalData] = useMutation(UPDATE_PERSONALDATA, {
     onCompleted: () => {
       toast.success('Task updated')
@@ -96,7 +98,7 @@ const PersonalDataPage = () => {
             <Label name="name" className="font-medium" />
             <TextField
               name="name"
-              defaultValue={data?.name}
+              // defaultValue={data?.name}
               className="input"
               validation={{ required: true }}
             />
@@ -108,7 +110,7 @@ const PersonalDataPage = () => {
             <Label name="familyName" className="font-medium" />
             <TextField
               name="familyName"
-              defaultValue={data?.familyName}
+              // defaultValue={data?.familyName}
               className="input"
               validation={{ required: true }}
             />
@@ -120,7 +122,7 @@ const PersonalDataPage = () => {
             <Label name="birthdate" className="font-medium" />
             <DateField
               name="birthdate"
-              defaultValue={data?.birthdate}
+              // defaultValue={data?.birthdate}
               className="input"
               validation={{ required: true }}
             />
@@ -132,7 +134,7 @@ const PersonalDataPage = () => {
             <Label name="gender" className="font-medium" />
             <SelectField
               name="gender"
-              defaultValue={data?.gender}
+              // defaultValue={data?.gender}
               className="input"
               validation={{ required: true }}
             >
@@ -148,7 +150,7 @@ const PersonalDataPage = () => {
             <Label name="role" className="font-medium" />
             <SelectField
               name="role"
-              defaultValue={data?.roleId}
+              // defaultValue={data?.roleId}
               className="input"
               validation={{ required: true }}
             >
@@ -166,7 +168,7 @@ const PersonalDataPage = () => {
             <Label name="phoneNumber" className="font-medium" />
             <TextField
               name="phoneNumber"
-              defaultValue={data?.phoneNumber}
+              // defaultValue={data?.phoneNumber}
               className="input"
             />
             <FieldError name="phoneNumber" className="text-red-500 text-sm" />
@@ -177,7 +179,7 @@ const PersonalDataPage = () => {
             <Label name="phoneCaretakerContact" className="font-medium" />
             <TextField
               name="phoneCaretakerContact"
-              defaultValue={data?.phoneCaretakerContact}
+              // defaultValue={data?.phoneCaretakerContact}
               className="input"
             />
             <FieldError
@@ -191,7 +193,7 @@ const PersonalDataPage = () => {
             <Label name="country" className="font-medium" />
             <TextField
               name="country"
-              defaultValue={data?.country}
+              // defaultValue={data?.country}
               className="input"
             />
             <FieldError name="country" className="text-red-500 text-sm" />
@@ -202,7 +204,7 @@ const PersonalDataPage = () => {
             <Label name="city" className="font-medium" />
             <TextField
               name="city"
-              defaultValue={data?.city}
+              // defaultValue={data?.city}
               className="input"
             />
             <FieldError name="city" className="text-red-500 text-sm" />
@@ -213,7 +215,7 @@ const PersonalDataPage = () => {
             <Label name="postalCode" className="font-medium" />
             <TextField
               name="postalCode"
-              defaultValue={data?.postalCode}
+              // defaultValue={data?.postalCode}
               className="input"
             />
             <FieldError name="postalCode" className="text-red-500 text-sm" />
@@ -224,7 +226,7 @@ const PersonalDataPage = () => {
             <Label name="address" className="font-medium" />
             <TextField
               name="address"
-              defaultValue={data?.address}
+              // defaultValue={data?.address}
               className="input"
             />
             <FieldError name="address" className="text-red-500 text-sm" />
