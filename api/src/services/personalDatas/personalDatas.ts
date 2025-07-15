@@ -59,6 +59,8 @@ export const deletePersonalData: MutationResolvers['deletePersonalData'] = ({
 
 export const PersonalData: PersonalDataRelationResolvers = {
   role: (_obj, { root }) => {
-    return db.personalData.findUnique({ where: { id: root?.id } }).role()
+    return db.personalData
+      .findUnique({ where: { userId: root?.userId } })
+      .role()
   },
 }

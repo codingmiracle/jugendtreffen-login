@@ -23,3 +23,38 @@ export const checkinOverview = async () => {
     checkinConfirmed: p.checkinConfirmed ?? false,
   }))
 }
+
+export const checkinDetails = async ({
+  participationId,
+}: {
+  participationId: bigint
+}) => {
+  const participation = await db.participation.findUnique({
+    where: { id: participationId },
+    select: {
+      id: true,
+      personalData: {
+        select: {
+          name: true,
+          familyName: true,
+          birthdate: true,
+          email: true, // Again, must exist in schema
+        },
+      },
+    },
+  })
+
+  if (!participation) {
+    throw new Error(`Participation with ID ${participationId} not found`)
+  }
+
+  const birthdate = participation.personalData.birthdate
+
+  return {
+    id: participation.id,
+    name: participation.personalData.name,
+    familyName: participation.personalData.familyName,
+    email: participation.personalData.email,
+    age,
+  }
+}
