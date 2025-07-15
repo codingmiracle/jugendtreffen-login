@@ -17,7 +17,7 @@ export const QUERY = PersonalDataCell.QUERY
 
 const UPDATE_PERSONALDATA = gql`
   mutation UpdatePersonalDataMutation(
-    $id: Int!
+    $id: BigInt!
     $input: UpdatePersonalDataInput!
   ) {
     updatePersonalData(id: $id, input: $input) {
@@ -27,7 +27,7 @@ const UPDATE_PERSONALDATA = gql`
 `
 
 const DELETE_PERSONALDATA = gql`
-  mutation DeletePersonalDataMutation($id: Int!) {
+  mutation DeletePersonalDataMutation($id: BigInt!) {
     deletePersonalData(id: $id) {
       id
     }
