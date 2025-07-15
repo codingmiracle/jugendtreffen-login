@@ -48,10 +48,8 @@ export const Success = ({
   personalData,
 }: CellSuccessProps<PersonalDataQuery, PersonalDataQueryVariables>) => {
   return (
-    <ul>
-      {personalData.map((item) => {
-        return <li key={item.id}>{JSON.stringify(item)}</li>
-      })}
-    </ul>
+    <>
+      <span>{JSON.stringify(personalData)}</span>
+    </>
   )
 }

@@ -7,7 +7,6 @@ import GlobalLayout from 'src/layouts/GlobalLayout/GlobalLayout'
 const Routes = () => {
   return (
     <Router useAuth={useAuth}>
-      <Route path="/checkin-detail" page={CheckinDetailPage} name="checkinDetail" />
       <Set wrap={GlobalLayout}>
         <Route path="/" page={HomePage} name="home" />
         <Set wrap={PageLayout}>
@@ -16,6 +15,7 @@ const Routes = () => {
           <Route path="/confirm" page={ConfirmSignupPage} name="confirmSignup" />
           <Route path="/events/{id}" page={EventPage} name="events" />
           <Route path="/checkin/{id}" page={CheckinDetailPage} name="checkin" />
+          <Route path="/personal-data/{id}" page={PersonalDataPage} name="personalData" />
           <Route path="/personal-datas" page={PersonalDatasPage} name="personalDatas" />
         </Set>
       </Set>
